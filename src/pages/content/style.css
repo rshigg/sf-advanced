@@ -1,2 +1,25 @@
 @tailwind components;
 @tailwind utilities;
+
+#__root {
+  position: sticky;
+  top: 0;
+  background: inherit;
+  z-index: 100;
+  overflow: hidden;
+}
+
+#sf-advanced-ext-container {
+  display: flex;
+  justify-content: safe center;
+  padding: 0.5rem 0;
+  overflow-x: auto;
+}
+
+#sf-advanced-ext-container * {
+  margin: 0;
+}
+
+#sf-advanced-ext-container select {
+  padding-right: 1.75rem;
+}
