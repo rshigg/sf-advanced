@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./style.css";
+
 import AdvancedSearch from "@src/components/AdvancedSearch";
 
 const main = document.getElementById("main");
