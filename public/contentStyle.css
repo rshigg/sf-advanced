@@ -1,0 +1,14 @@
+#sf-advanced-ext-container {
+  display: flex;
+  justify-content: safe center;
+  padding: 0.5rem 0;
+  overflow-x: auto;
+}
+
+#sf-advanced-ext-container * {
+  margin: 0;
+}
+
+#sf-advanced-ext-container select {
+  padding-right: 1.75rem;
+}
