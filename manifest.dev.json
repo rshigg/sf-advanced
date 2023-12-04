@@ -1,6 +1,8 @@
 {
   "action": {
-    "default_icon": "public/icon-32.png"
+    "default_icon": {
+      "32": "public/icon-32.png"
+    }
   },
   "web_accessible_resources": [
     {

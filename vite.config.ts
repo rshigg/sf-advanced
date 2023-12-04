@@ -15,8 +15,10 @@ const publicDir = resolve(__dirname, "public");
 
 const isDev = process.env.__DEV__ === "true";
 
+const { $schema, ...prodManifest } = manifest;
+
 const extensionManifest = {
-  ...manifest,
+  ...prodManifest,
   ...(isDev ? devManifest : ({} as ManifestV3Export)),
   name: isDev ? `DEV: ${manifest.name}` : manifest.name,
   version: pkg.version,

@@ -14,7 +14,7 @@
   "icons": {
     "128": "icon-128.png"
   },
-  "permissions": ["activeTab"],
+  "permissions": [],
   "content_scripts": [
     {
       "matches": ["https://scryfall.com/*"],
