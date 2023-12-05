@@ -112,7 +112,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
 
-      - run: ls -lah ${{ env.PUBLISH_PATH }}
+      - run: zip ${{ env.PUBLISH_PATH }}.zip ${{ env.PUBLISH_PATH }} -r
+      - run: ls -lah
 
       # - name: Publish
       #   uses: ncipollo/release-action@v1
