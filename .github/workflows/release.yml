@@ -106,16 +106,16 @@ jobs:
       - name: Upload extension artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: bundle
+          name: ${{ env.PUBLISH_PATH }}
           path: dist
 
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: bundle
+          name: ${{ env.PUBLISH_PATH }}
 
       - name: ZIP bundle
-        run: zip -r ${{ env.PUBLISH_PATH }}.zip . -i bundle/
+        run: zip -r ${{ env.PUBLISH_PATH }}.zip ${{ env.PUBLISH_PATH }}
 
       - name: Publish
         uses: ncipollo/release-action@v1
