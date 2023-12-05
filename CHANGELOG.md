@@ -10,4 +10,4 @@
 
 ### Minor Changes
 
-- 37e2ce1: Change the name input to an oracle text input
+- 37e2ce1: change the name input to an oracle text input
