@@ -111,15 +111,10 @@ jobs:
 
       - name: Download artifact
         uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.PUBLISH_PATH }}
-
-      - name: ZIP bundle
-        run: zip -r ${{ env.PUBLISH_PATH }}.zip ${{ github.workspace }}/${{ env.PUBLISH_PATH }}
 
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.VERSION_TAG }}
-          artifacts: "${{ env.PUBLISH_PATH }}.zip"
+          artifacts: "${{ env.PUBLISH_PATH }}/${{ env.PUBLISH_PATH }}.zip"
           body: "Please refer to [CHANGELOG.md](/blob/main/CHANGELOG.md) for details."
