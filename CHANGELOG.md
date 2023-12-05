@@ -1,5 +1,11 @@
 # scryfall-advanced-extension
 
+## 1.1.2
+
+### Patch Changes
+
+- 66d229c: add publish workflow
+
 ## 1.1.1
 
 ### Patch Changes
