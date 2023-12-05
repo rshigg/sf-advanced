@@ -113,5 +113,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.VERSION_TAG }}
-          artifacts: ${{ env.PUBLISH_PATH }}
+          artifacts: "${{ env.PUBLISH_PATH }}"
           body: "Please refer to [CHANGELOG.md](https://github.com/rshigg/sf-advanced/blob/main/CHANGELOG.md) for details."

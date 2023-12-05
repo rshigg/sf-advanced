@@ -20,6 +20,12 @@
   margin: 0;
 }
 
-#sf-advanced-ext-container select {
-  padding-right: 1.75rem;
+#sf-advanced-ext-container .form-input {
+  padding: 8px 6px;
+}
+
+#sf-advanced-ext-container select.form-input {
+  padding-right: 20px;
+  background-size: auto 35%;
+  background-position: right 4px top 12px;
 }
