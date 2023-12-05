@@ -1,5 +1,11 @@
 # scryfall-advanced-extension
 
+## 1.1.1
+
+### Patch Changes
+
+- a8f9823: create release workflow
+
 ## 1.1.0
 
 ### Minor Changes
