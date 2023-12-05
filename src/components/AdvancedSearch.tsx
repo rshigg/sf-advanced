@@ -1,3 +1,5 @@
+import * as React from "react";
+
 const colors = ["W", "U", "B", "R", "G", "C"] as const;
 const colorDescriptions: Record<(typeof colors)[number], string> = {
   W: "one white mana",
@@ -10,11 +12,33 @@ const colorDescriptions: Record<(typeof colors)[number], string> = {
 
 const rarities = ["c", "u", "r", "m"];
 
+type InputType = {
+  name: string;
+  label: string;
+  shortLabel: string;
+};
+
+const inputTypeMap: Record<string, InputType> = {
+  oracle: { name: "oracle", label: "Oracle text", shortLabel: "Text" },
+  type: { name: "type", label: "Types", shortLabel: "Type" },
+  name: { name: "name", label: "Card name", shortLabel: "Name" },
+  mana: { name: "mana", label: "Exact mana cost", shortLabel: "Cost" },
+};
+
+const inputTypes = Object.values(inputTypeMap);
+
 function Divider() {
   return <hr className="border-l border-solid border-primary h-8"></hr>;
 }
 
 export default function AdvancedSearch() {
+  const [inputType, setInputType] = React.useState<InputType>(inputTypes[0]);
+
+  React.useEffect(() => {
+    // Auto-focus main input on mount
+    document.getElementById("main-input")?.focus();
+  }, []);
+
   return (
     <form
       noValidate
@@ -24,18 +48,35 @@ export default function AdvancedSearch() {
       id="sf-advanced-ext-container"
     >
       <div className="flex items-center gap-2 w-full max-w-[1000px]">
-        <label htmlFor="oracle" className="flex-1">
-          <span className="visuallyhidden">Oracle text</span>
+        <div className="flex-1 flex">
+          <label className="visuallyhidden" htmlFor="input_type">
+            Input type
+          </label>
+          <select
+            name="input_type"
+            aria-controls="main-input"
+            className="form-input !-mr-px !rounded-r-none focus:z-10"
+            onChange={(e) => setInputType(inputTypeMap[e.target.value])}
+          >
+            {inputTypes.map((type) => (
+              <option key={type.name} value={type.name}>
+                {type.shortLabel}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="oracle" className="visuallyhidden">
+            {inputType.label}
+          </label>
           <input
             type="text"
-            name="oracle"
-            id="oracle"
-            className="form-input w-full"
-            placeholder="Oracle text"
+            name={inputType.name}
+            id="main-input"
+            className="flex-1 form-input !rounded-l-none focus:z-10"
+            placeholder={inputType.label}
             autoCorrect="off"
             spellCheck="false"
           />
-        </label>
+        </div>
         <Divider />
         <fieldset className="flex items-center gap-1">
           <legend className="visuallyhidden">Card colors</legend>
