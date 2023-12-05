@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -54,7 +53,7 @@ jobs:
   publish:
     name: Publish
     needs: release
-    if: ${{ needs.release.outputs.skipPublish == 'false' || github.event_name == 'workflow_dispatch' }}
+    # if: needs.release.outputs.skipPublish == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -112,12 +111,10 @@ jobs:
 
       - name: Download artifact
         uses: actions/download-artifact@v3
-        with:
-          name: ${{ env.PUBLISH_PATH }}
 
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.VERSION_TAG }}
-          artifacts: "${{ env.PUBLISH_PATH }}"
-          body: "Please refer to [CHANGELOG.md](https://github.com/rshigg/sf-advanced/blob/main/CHANGELOG.md) for details."
+          artifacts: "${{ env.PUBLISH_PATH }}.zip"
+          body: "Please refer to [CHANGELOG.md](${{ github.repository }}/blob/main/CHANGELOG.md) for details."
