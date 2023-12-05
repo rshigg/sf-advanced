@@ -112,9 +112,11 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
 
-      - name: Publish
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ env.VERSION_TAG }}
-          artifacts: "${{ env.PUBLISH_PATH }}/${{ env.PUBLISH_PATH }}.zip"
-          body: "Please refer to [CHANGELOG.md](/blob/main/CHANGELOG.md) for details."
+      - run: ls -lah
+
+      # - name: Publish
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     tag: ${{ env.VERSION_TAG }}
+      #     artifacts: "${{ env.PUBLISH_PATH }}/${{ env.PUBLISH_PATH }}.zip"
+      #     body: "Please refer to [CHANGELOG.md](/blob/main/CHANGELOG.md) for details."
