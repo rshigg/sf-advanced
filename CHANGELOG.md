@@ -1,5 +1,11 @@
 # scryfall-advanced-extension
 
+## 1.2.0
+
+### Minor Changes
+
+- 11b07e8: add ability to choose between oracle text, card types, card name, or mana cost for the main input field
+
 ## 1.1.2
 
 ### Patch Changes
