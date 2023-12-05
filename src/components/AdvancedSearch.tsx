@@ -24,21 +24,19 @@ export default function AdvancedSearch() {
       id="sf-advanced-ext-container"
     >
       <div className="flex items-center gap-2 w-full max-w-[1000px]">
-        {/* Name */}
-        <label htmlFor="name" className="flex-1">
-          <span className="visuallyhidden">Name</span>
+        <label htmlFor="oracle" className="flex-1">
+          <span className="visuallyhidden">Oracle text</span>
           <input
             type="text"
-            name="name"
-            id="name"
+            name="oracle"
+            id="oracle"
             className="form-input w-full"
-            placeholder="Name"
+            placeholder="Oracle text"
             autoCorrect="off"
             spellCheck="false"
           />
         </label>
         <Divider />
-        {/* Colors */}
         <fieldset className="flex items-center gap-1">
           <legend className="visuallyhidden">Card colors</legend>
           <label className="visuallyhidden" htmlFor="color_comparison">
@@ -75,7 +73,6 @@ export default function AdvancedSearch() {
           ))}
         </fieldset>
         <Divider />
-        {/* Rarity */}
         <fieldset className="flex gap-1">
           {rarities.map((rarity) => (
             <label
@@ -95,7 +92,6 @@ export default function AdvancedSearch() {
           ))}
         </fieldset>
         <Divider />
-        {/* Format */}
         <fieldset className="flex">
           <label className="visuallyhidden" htmlFor="format_1">
             Format

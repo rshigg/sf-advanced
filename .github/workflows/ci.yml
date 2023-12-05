@@ -30,8 +30,12 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Get Version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
       - name: Upload extension artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: scryfall-advanced-extension
+          name: scryfall-advanced-${{ steps.package-version.outputs.current-version }}
           path: dist
