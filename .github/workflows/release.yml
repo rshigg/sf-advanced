@@ -106,15 +106,20 @@ jobs:
       - name: Upload extension artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.PUBLISH_PATH }}
+          name: bundle
           path: dist
 
-      # - name: Download artifact
-      #   uses: actions/download-artifact@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: bundle
+
+      - name: ZIP bundle
+        run: zip -r ${{ env.PUBLISH_PATH }}.zip bundle/
 
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.VERSION_TAG }}
-          artifacts: "${{ github.workspace }}/${{ env.PUBLISH_PATH }}"
-          body: "Please refer to [CHANGELOG.md](${{ github.repository }}/blob/main/CHANGELOG.md) for details."
+          artifacts: "${{ env.PUBLISH_PATH }}.zip"
+          body: "Please refer to [CHANGELOG.md](/blob/main/CHANGELOG.md) for details."
