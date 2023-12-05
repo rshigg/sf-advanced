@@ -115,7 +115,7 @@ jobs:
           name: bundle
 
       - name: ZIP bundle
-        run: zip -r "${{ env.PUBLISH_PATH }}.zip" bundle/
+        run: zip -r ${{ env.PUBLISH_PATH }}.zip . -i bundle/
 
       - name: Publish
         uses: ncipollo/release-action@v1
