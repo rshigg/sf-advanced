@@ -115,7 +115,7 @@ jobs:
           name: ${{ env.PUBLISH_PATH }}
 
       - name: ZIP bundle
-        run: zip -r ${{ env.PUBLISH_PATH }}.zip ${{ env.PUBLISH_PATH }}
+        run: zip -r ${{ env.PUBLISH_PATH }}.zip ${{ github.workspace }}/${{ env.PUBLISH_PATH }}
 
       - name: Publish
         uses: ncipollo/release-action@v1
