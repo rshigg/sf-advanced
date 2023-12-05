@@ -116,5 +116,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.VERSION_TAG }}
-          artifacts: "${{ env.PUBLISH_PATH }}.zip"
+          artifacts: "${{ github.workspace }}/${{ env.PUBLISH_PATH }}.zip"
           body: "Please refer to [CHANGELOG.md](${{ github.repository }}/blob/main/CHANGELOG.md) for details."
