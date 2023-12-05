@@ -11,6 +11,8 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    outputs:
+      skipPublish: ${{ steps.changesets.outputs.hasChangesets }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -24,9 +26,23 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
-          run_install: |
-            - recursive: true
-              args: [--frozen-lockfile, --strict-peer-dependencies]
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Create Release Pull Request
         id: changesets
@@ -34,15 +50,74 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  publish:
+    name: Publish
+    needs: release
+    # if: needs.release.outputs.skipPublish == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Build
-        # Ready to publish
-        if: steps.changesets.outputs.hasChangesets == 'false'
         run: pnpm build
 
-      - name: Publish
-        # Ready to publish
-        if: steps.changesets.outputs.hasChangesets == 'false'
+      - name: Get version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+      - name: Store version tag
+        shell: bash
+        run: |
+          echo "VERSION_TAG=v${{ steps.package-version.outputs.current-version }}" >> $GITHUB_ENV
+
+      - name: Store publish path
+        shell: bash
+        run: |
+          echo "PUBLISH_PATH=scryfall-advanced-${{ env.VERSION_TAG }}" >> $GITHUB_ENV
+
+      - name: Upload extension artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: scryfall-advanced-${{ steps.changesets.output.publishedPackages[0].version }}
+          name: ${{ env.PUBLISH_PATH }}
           path: dist
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+
+      - name: ZIP bundle
+        run: zip ${{ env.PUBLISH_PATH }}.zip ${{ env.PUBLISH_PATH }} -r
+
+      - name: Publish
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ env.VERSION_TAG }}
+          artifacts: "${{ env.PUBLISH_PATH }}.zip"
+          body: "Please refer to [CHANGELOG.md](/blob/main/CHANGELOG.md) for details."
