@@ -54,7 +54,7 @@ jobs:
   publish:
     name: Publish
     needs: release
-    if: needs.release.outputs.skipPublish == 'false' || github.event_name == 'workflow_dispatch'
+    if: ${{ needs.release.outputs.skipPublish == 'false' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
