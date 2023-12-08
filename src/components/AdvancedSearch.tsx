@@ -55,7 +55,7 @@ export default function AdvancedSearch() {
           <select
             name="input_type"
             aria-controls="main-input"
-            className="form-input !-mr-px !rounded-r-none focus:z-10"
+            className="select-n !-mr-px !rounded-r-none focus:z-10"
             onChange={(e) => setInputType(inputTypeMap[e.target.value])}
           >
             {inputTypes.map((type) => (
@@ -71,7 +71,7 @@ export default function AdvancedSearch() {
             type="text"
             name={inputType.name}
             id="main-input"
-            className="flex-1 form-input !rounded-l-none focus:z-10"
+            className="flex-1 form-n-input !rounded-l-none focus:z-10"
             placeholder={inputType.label}
             autoCorrect="off"
             spellCheck="false"
@@ -84,7 +84,7 @@ export default function AdvancedSearch() {
             Format
           </label>
           <select
-            className="form-input"
+            className="select-n"
             name="color_comparison"
             id="color_comparison"
           >
@@ -96,7 +96,7 @@ export default function AdvancedSearch() {
           {colors.map((color) => (
             <label
               key={color}
-              className="advanced-search-checkbox button-n min-h-[36px] min-w-[36px] focus-within:bg-white focus-within:border-primary"
+              className="advanced-search-checkbox button-n focus-within:bg-white focus-within:border-primary"
             >
               <input
                 type="checkbox"
@@ -118,7 +118,7 @@ export default function AdvancedSearch() {
           {rarities.map((rarity) => (
             <label
               key={rarity}
-              className="advanced-search-checkbox button-n min-h-[36px] min-w-[36px] focus-within:bg-white focus-within:border-primary"
+              className="advanced-search-checkbox button-n focus-within:bg-white focus-within:border-primary"
             >
               <input
                 type="checkbox"
@@ -138,7 +138,7 @@ export default function AdvancedSearch() {
             Format
           </label>
           <select
-            className="form-input medium-select auto"
+            className="select-n medium-select auto"
             name="format_1"
             id="format_1"
           >
@@ -173,7 +173,7 @@ export default function AdvancedSearch() {
             value="legal"
           />
         </fieldset>
-        <button type="submit" className="button-n submit-n">
+        <button type="submit" className="button-n">
           Search
         </button>
       </div>
