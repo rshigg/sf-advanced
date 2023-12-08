@@ -1,5 +1,11 @@
 # scryfall-advanced-extension
 
+## 1.2.1
+
+### Patch Changes
+
+- 7519a1f: Update styles to make elements slimmer
+
 ## 1.2.0
 
 ### Minor Changes
