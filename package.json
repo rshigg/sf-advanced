@@ -1,6 +1,6 @@
 {
   "name": "scryfall-advanced-extension",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "An extension to add a condensed version of advanced search at the top of every Scryfall page.",
   "license": "MIT",
   "repository": {
